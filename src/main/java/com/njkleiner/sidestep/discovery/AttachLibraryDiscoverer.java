@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import com.njkleiner.sidestep.OperatingSystem;
+import com.njkleiner.sidestep.util.OperatingSystem;
 
 public class AttachLibraryDiscoverer implements FileDiscoverer {
 

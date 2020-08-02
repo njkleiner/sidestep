@@ -3,7 +3,7 @@ package com.njkleiner.sidestep.discovery;
 import java.io.File;
 import java.util.Optional;
 
-import com.njkleiner.sidestep.OperatingSystem;
+import com.njkleiner.sidestep.util.OperatingSystem;
 
 /**
  * A {@link FileDiscoverer} is responsible for locating files that are part of

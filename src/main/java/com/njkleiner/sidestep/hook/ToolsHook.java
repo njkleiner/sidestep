@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Optional;
 
-import com.njkleiner.sidestep.OperatingSystem;
+import com.njkleiner.sidestep.util.OperatingSystem;
 import com.njkleiner.sidestep.discovery.FileDiscoverer;
 import com.njkleiner.sidestep.discovery.ToolsDiscoverer;
 

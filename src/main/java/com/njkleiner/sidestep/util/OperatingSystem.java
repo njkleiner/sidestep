@@ -1,4 +1,4 @@
-package com.njkleiner.sidestep;
+package com.njkleiner.sidestep.util;
 
 /**
  * An {@link OperatingSystem} represents one of the three known operating systems,
@@ -26,6 +26,7 @@ public enum OperatingSystem {
             return OperatingSystem.LINUX;
         }
 
+        //TODO: Make this method return an `Optional<OperatingSystem>`.
         return null;
     }
 

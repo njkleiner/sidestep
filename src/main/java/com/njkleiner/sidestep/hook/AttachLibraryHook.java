@@ -4,7 +4,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Optional;
 
-import com.njkleiner.sidestep.OperatingSystem;
+import com.njkleiner.sidestep.util.OperatingSystem;
 import com.njkleiner.sidestep.discovery.AttachLibraryDiscoverer;
 import com.njkleiner.sidestep.discovery.FileDiscoverer;
 
