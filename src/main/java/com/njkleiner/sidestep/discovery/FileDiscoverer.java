@@ -1,6 +1,7 @@
 package com.njkleiner.sidestep.discovery;
 
 import java.io.File;
+import java.util.Optional;
 
 import com.njkleiner.sidestep.OperatingSystem;
 
@@ -15,8 +16,8 @@ public interface FileDiscoverer {
      *
      * @param system The current {@link OperatingSystem}.
      *
-     * @return The {@link File} found, or `null`.
+     * @return An {@link Optional<File>} wrapping the file found.
      */
-    public File discover(OperatingSystem system);
+    public Optional<File> discover(OperatingSystem system);
 
 }
