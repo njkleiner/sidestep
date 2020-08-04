@@ -1,15 +1,21 @@
-package com.njkleiner.sidestep.inject;
+package com.njkleiner.sidestep.wam.service;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DefaultAgentInjector implements AgentInjector {
+import com.njkleiner.sidestep.wam.entity.JavaAgent;
+import com.njkleiner.sidestep.wam.value.VirtualMachine;
+
+public class DefaultInjectionService implements InjectionService {
 
     @Override
-    public void inject(String target, File agent) throws Exception {
+    public void inject(VirtualMachine target, JavaAgent agent) throws Exception {
+        if (!agent.isInjectable()) {
+            throw new IllegalArgumentException("Agent is not injectable");
+        }
+
         Class<?> virtualMachineDescriptor = Class.forName("com.sun.tools.attach.VirtualMachineDescriptor");
         Method id = virtualMachineDescriptor.getDeclaredMethod("id");
         Method displayName = virtualMachineDescriptor.getDeclaredMethod("displayName");
@@ -25,11 +31,11 @@ public class DefaultAgentInjector implements AgentInjector {
         for (Object descriptor : descriptors) {
             Object name = displayName.invoke(descriptor);
 
-            if (name.toString().equalsIgnoreCase(target)) {
+            if (name.toString().equalsIgnoreCase(target.getId())) {
                 Object pid = id.invoke(descriptor);
 
                 Object machine = attach.invoke(null, pid);
-                loadAgent.invoke(machine, agent.getAbsolutePath());
+                loadAgent.invoke(machine, agent.getFile().getAbsolutePath());
                 detach.invoke(machine);
 
                 break;
@@ -38,8 +44,8 @@ public class DefaultAgentInjector implements AgentInjector {
     }
 
     @Override
-    public Set<String> listTargets() throws Exception {
-        Set<String> targets = new HashSet<String>();
+    public Set<VirtualMachine> listTargets() throws Exception {
+        Set<VirtualMachine> targets = new HashSet<VirtualMachine>();
 
         Class<?> virtualMachineDescriptor = Class.forName("com.sun.tools.attach.VirtualMachineDescriptor");
         Method displayName = virtualMachineDescriptor.getDeclaredMethod("displayName");
@@ -52,7 +58,9 @@ public class DefaultAgentInjector implements AgentInjector {
         for (Object descriptor : descriptors) {
             String target = (String) displayName.invoke(descriptor);
 
-            targets.add(target);
+            if (target != null && !target.isEmpty()) {
+                targets.add(new VirtualMachine(target));
+            }
         }
 
         return targets;
