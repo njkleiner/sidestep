@@ -25,7 +25,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.njkleiner.sidestep.Main</mainClass>
+                            <mainClass>com.njkleiner.sidestep.Bootstrap</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
